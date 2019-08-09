@@ -34,3 +34,14 @@ have checked that their visual editor makes things compatible with all the clien
 ourselves as we would with Litmus.
 
 Bottom line is that Mailjet looks like the correct choice and that we are currently checking if SSO is available.
+
+## Release of applications
+### Server
+To begin a release we start with commiting a change of version number in the package.json. After this we tag that branch with a version format like `vx.y.z`, for example `v1.0.0`, which is the same version as package.json. This should then be pushed to GitHub.
+
+Currently we will then be logging in to the server and pull the changes and run `pm2 restart Server`. Later this should probably be done automatically when the version tag is pushed to master.
+
+### Frontend
+To begin a release we start with commiting a change of version number in the package.json. Then we merge the `develop` branch in to the `master` branch. After this we tag that branch with a version format like `vx.y.z`, for example `v1.0.0`, which is the same version as package.json. This should then be pushed to GitHub.
+
+Currently we will then be logging in to the server and pull the changes and run `npm run build` and then `pm2 restart Frontend`. Later this should probably be done automatically when the version tag is pushed to master.
