@@ -13,15 +13,28 @@ The documentation for this is here: https://www.npmjs.com/policies/unpublish. No
 for 24 hours until a new publish can be performed so be careful!
 
 ## Bit
-To allow easy and up-to date reuse of code between projects the plan is to use [Bit](https://bit.dev). An issues with Bit is that it
-has not way of handling SSO, you can login with GitHub so that could work for us but when you do you still need to "create an account".
-This creation is I guess mostly just to place you in their system and it require only a username, pre-filled from GitHub.
+To allow easy and up-to date reuse of code between projects there was a plan to use
+[Bit](https://bit.dev).
 
-On to Bit it self. It's a CLI installed via NPM and allows use to export components and manage their dependencies. An example usage for
-the frontend code would be that we have a button which should have the same logic in two projects and some standard styles. Project A
-created the button and project B want to use it with a different color. Project A would create a component and export it, B would
-import the button and then locally change the color. If the button later is updated by A the changes can still be pulled in by B. The
-system closely resembles Git with commands like `add` and `status`. 
+On to Bit it self. It's a CLI installed via NPM and allows use to export components and manage
+their dependencies. An example usage for the frontend code would be that we have a button which
+should have the same logic in two projects and some standard styles. Project A created the button
+and project B want to use it with a different color. Project A would create a component and export
+it, B would import the button and then locally change the color. If the button later is updated by
+A the changes can still be pulled in by B. The system closely resembles Git with commands like
+`add` and `status`.
+
+After further research Bit has a couple of issues. While exporting a component is simple and quick
+the importing is harder. Since Bit want the components to be consumed by Bit and NPM they get some
+extra files when imported to a project, including node_modules and package.json.
+
+If we look at some other specific projects like the agentvegan-server we ran into some other issues
+with linting and ms-description-checks. Linting was failing since Bit created stub files and the 
+ms-description-checks were hard to implement since some of the code would become NPM modules. And
+to the point of configuration values and loggers. This would end up in having to pass options
+objects down to each microservice which feel like an annoying thing to do.
+
+In the end we decided against Bit for some of the reasons above.
 
 ## GitHub
 
