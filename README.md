@@ -50,11 +50,11 @@ Bottom line is that Mailjet looks like the correct choice and that we are curren
 
 ## Release of applications
 ### Server
-To begin a release we start with commiting a change of version number in the package.json. After this we tag that branch with a version format like `vx.y.z`, for example `v1.0.0`, which is the same version as package.json. This should then be pushed to GitHub.
+To begin a release we start with commiting a change of version number in the package.json. After this we tag that branch with a version format like `vx.y.z`, for example `v1.0.0`, which is the same version as package.json. This should then be pushed to GitHub, remember that tags needs to be pushed with either `git push --tags` or actully specifying the tag to the push command like `git push v1.0.0`.
 
 Currently we will then be logging in to the server and pull the changes and run `pm2 restart Server`. Later this should probably be done automatically when the version tag is pushed to master.
 
 ### Frontend
-To begin a release we start with commiting a change of version number in the package.json. Then we merge the `develop` branch in to the `master` branch. After this we tag that branch with a version format like `vx.y.z`, for example `v1.0.0`, which is the same version as package.json. This should then be pushed to GitHub.
+To begin a release we start with commiting a change of version number in the package.json. Then we merge the `develop` branch in to the `master` branch. After this we tag that branch with a version format like `vx.y.z`, for example `v1.0.0`, which is the same version as package.json. This should then be pushed to GitHub, remember that tags needs to be pushed with either `git push --tags` or actully specifying the tag to the push command like `git push v1.0.0`.
 
 Currently we will then be logging in to the server and pull the changes and run `npm run build` and then `pm2 restart Frontend`. Later this should probably be done automatically when the version tag is pushed to master.
