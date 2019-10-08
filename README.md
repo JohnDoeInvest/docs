@@ -49,12 +49,30 @@ ourselves as we would with Litmus.
 Bottom line is that Mailjet looks like the correct choice and that we are currently checking if SSO is available.
 
 ## Release of applications
-### Server
-To begin a release we start with commiting a change of version number in the package.json and run 'npm install' to ensure that the package-lock.json is correct. After this we tag that branch with a version format like `vx.y.z`, for example `v1.0.0`, which is the same version as package.json. This should then be pushed to GitHub, remember that tags needs to be pushed with either `git push --tags` or actully specifying the tag to the push command like `git push v1.0.0`.
+A release is done by creating a release branch with the name `release-vX.Y.Z`. Checkout the branch
+and update the `package.json` version to the new version, same as the `X.Y.Z` in the branch name,
+and then run `npm install` to update the `package-lock.json`. Commit this with the message 
+"Release vX.Y.Z" and the push the branch to GitHub. Create a pull request towards the `master`
+branch, try to write a short changelog in the pull request description.
 
-Currently we will then be logging in to the server and pull the changes and run `pm2 restart Server`. Later this should probably be done automatically when the version tag is pushed to master.
+When the pull request is approved by enough people we merge it into `master` and then we create a
+tag with the name `vX.Y.Z` (This can be done with Releases in GitHub). After this we create a new
+pull request towards the `develop` branch. When this pull request is approved by enough people we
+merge it into `develop`.
 
-### Frontend
-To begin a release we start with commiting a change of version number in the package.json and run 'npm install' to ensure that the package-lock.json is correct. Then we merge the `develop` branch in to the `master` branch. After this we tag that branch with a version format like `vx.y.z`, for example `v1.0.0`, which is the same version as package.json. This should then be pushed to GitHub, remember that tags needs to be pushed with either `git push --tags` or actully specifying the tag to the push command like `git push v1.0.0`.
+Currently we will then be logging in to the server to update the applications and we need to do
+the following commands.
+(Later this should probably be done automatically when the version tag is pushed to master.)
 
-Currently we will then be logging in to the server and pull the changes and run `npm run build` and then `pm2 restart Frontend`. Later this should probably be done automatically when the version tag is pushed to master.
+**Frontend**
+* `git fetch`
+* `git checkout vX.Y.Z`
+* `npm install`
+* `npm run build`
+* `pm2 restart Frontend`
+
+**Server**
+* `git fetch`
+* `git checkout vX.Y.Z`
+* `npm install`
+* `pm2 restart Server`
