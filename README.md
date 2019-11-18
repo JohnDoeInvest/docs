@@ -12,41 +12,15 @@ the `package.json`. After this we run `npm publish ./` in the root of the projec
 The documentation for this is here: https://www.npmjs.com/policies/unpublish. Note that some of these require waiting 
 for 24 hours until a new publish can be performed so be careful!
 
-## Bit
-To allow easy and up-to date reuse of code between projects there was a plan to use
-[Bit](https://bit.dev).
+## Frontend
+### Goals
+Give that the following "DoubleClick by Google found 53% of mobile site visits were abandoned if a page took longer than 3 seconds to load." our biggest goal with the frontend is that it loads quickly. That has a couple of impacts. Number one is the size of libraries, when looking for a new library we don't just get the first result we find. We need to research alternatives, look at size, feature set and activty. Each of these are important on it's own but the most important one is size. Number two, assets need to be small. No huge images, at least not for all clients. And number three, look at the numbers. Lighthouse is a great tool to tell us how we are doing and there are other tools which might give us other information.
 
-On to Bit it self. It's a CLI installed via NPM and allows use to export components and manage
-their dependencies. An example usage for the frontend code would be that we have a button which
-should have the same logic in two projects and some standard styles. Project A created the button
-and project B want to use it with a different color. Project A would create a component and export
-it, B would import the button and then locally change the color. If the button later is updated by
-A the changes can still be pulled in by B. The system closely resembles Git with commands like
-`add` and `status`.
-
-After further research Bit has a couple of issues. While exporting a component is simple and quick
-the importing is harder. Since Bit want the components to be consumed by Bit and NPM they get some
-extra files when imported to a project, including node_modules and package.json.
-
-If we look at some other specific projects like the agentvegan-server we ran into some other issues
-with linting and ms-description-checks. Linting was failing since Bit created stub files and the 
-ms-description-checks were hard to implement since some of the code would become NPM modules. And
-to the point of configuration values and loggers. This would end up in having to pass options
-objects down to each microservice which feel like an annoying thing to do.
-
-In the end we decided against Bit for some of the reasons above.
-
-## GitHub
-
+### Browser support
+Our goal is to support as many users as possible. This means that we need to support both old and new browsers which hurts the size of our application. Since old browsers don't support all API's we need to add extra code to support those as well. What we have ended up doing is building two separate bundles of code to ship down to the clients depending on their browser. Using Browserslists what we support in production with `> 0.5% and not dead` and then we also defined which browsers are considered modern [as of 2019-11-18](https://caniuse.com/#compare=ie+11,edge+15,firefox+53,chrome+58,safari+11,opera+44,ios_saf+11.0-11.2,android+76,op_mob+46,and_chr+78,and_ff+68,and_uc+12.12,samsung+7.2-7.4&compare_cats=). 
 
 ## Email
-Currently the plan is to use Mailjet as the email service. There was a choice between it and multiple other services, one
-of which was Litmus. Litmus offers more in terms of previewing on different devices and clients but lacks a visual editor which
-makes it hard to have a regular marketing person creating email. Mailjet has an editor but lacks the great previews, they do seem to
-have checked that their visual editor makes things compatible with all the clients so I'm less worried than if we write the HTML
-ourselves as we would with Litmus.
-
-Bottom line is that Mailjet looks like the correct choice and that we are currently checking if SSO is available.
+Our email service is SendInBlue.
 
 ## Release of applications
 A release is done by creating a release branch with the name `release-vX.Y.Z`. Checkout the branch
