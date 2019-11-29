@@ -30,7 +30,7 @@ and then run `npm install` to update the `package-lock.json`. Commit this with t
 branch, try to write a short changelog in the pull request description.
 
 When the pull request is approved by enough people we merge it into `master` and then we create a
-tag with the name `vX.Y.Z` (This can be done with Releases in GitHub). After this we create a new
+tag with the name `vX.Y.Z` with `master` as the target (This can be done with Releases in GitHub). After this we create a new
 pull request towards the `develop` branch. When this pull request is approved by enough people we
 merge it into `develop`.
 
