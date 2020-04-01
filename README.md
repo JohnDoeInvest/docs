@@ -50,3 +50,5 @@ the following commands.
 * `git checkout vX.Y.Z`
 * `npm install`
 * `pm2 restart Server`
+
+NOTE! PM2 needs a bit more details on install/setup, but for now remember that once a service has been changed, run `pm2 save` to ensure that the changes survies a reboot of the machine.
